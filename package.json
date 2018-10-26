@@ -19,5 +19,14 @@
   "homepage": "https://github.com/xuweikang/express-mysite#readme",
   "dependencies": {
     "koa": "^2.6.1"
+  },
+  "devDependencies": {
+    "ejs": "^2.6.1",
+    "koa-bodyparser": "^4.2.1",
+    "koa-logger": "^3.2.0",
+    "koa-router": "^7.4.0",
+    "koa-static": "^5.0.0",
+    "koa-views": "^6.1.4",
+    "mysql": "^2.16.0"
   }
 }
