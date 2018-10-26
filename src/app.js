@@ -1,4 +1,4 @@
-const Koa = require('Koa')
+const Koa = require('koa')
 const path = require('path')
 const koaLogger = require('koa-logger')
 const bodyParser = require('koa-bodyparser')
