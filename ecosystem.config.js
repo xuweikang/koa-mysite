@@ -18,9 +18,11 @@ module.exports = {
       user : 'root',
       host : 'localhost',
       ref  : 'origin/master',
-      repo : 'git@github.com:xuweikang/koa-mysite.git',
+      repo : 'https://github.com/xuweikang/koa-mysite.git',
       path : '/home/koa-mysite',
-      'post-deploy' : 'npm install && npm run start_server'
-    }
+      "ssh_options": "StrictHostKeyChecking=no",
+      'post-deploy' : 'npm install && npm run start_server',
+      'pre-setup': 'rm -rf /source'
+    },
   }
 };
