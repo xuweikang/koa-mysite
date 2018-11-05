@@ -7,4 +7,4 @@ const index = require('../controllers/index')
 
 module.exports = router
     .get('/', index)
-    .get('/users', index)
+    .get('/home/users', index)
