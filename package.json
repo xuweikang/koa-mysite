@@ -4,7 +4,8 @@
   "description": "",
   "main": "/src/app.js",
   "scripts": {
-    "start_server": "node ./src/app.js",
+    "start_server": "forever start ./src/app.js",
+    "dev": "forever start -w ./src/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
