@@ -7,7 +7,7 @@
     // "production" is the environment name
     "production" : {
       "user" : "root",
-      "host" : "127.0.0.1",
+      "host" : "localhost",
       "ref"  : "origin/master",
       "repo" : "https://github.com/xuweikang/koa-mysite.git",
       "path" : "/home/koa-mysite",
