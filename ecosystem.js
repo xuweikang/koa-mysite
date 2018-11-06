@@ -21,7 +21,7 @@ module.exports = {
       repo : 'https://github.com/xuweikang/koa-mysite.git',
       path : '/home/koa-mysite',
       "ssh_options": "StrictHostKeyChecking=no",
-      'post-deploy' : 'npm install && pm2 startOrRestart ecosystem.config.js',
+      'post-deploy' : 'npm install && pm2 startOrRestart ecosystem.js',
       'pre-setup': 'rm -rf /source'
     },
   }
