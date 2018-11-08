@@ -28,7 +28,7 @@ module.exports = {
     async uploadImageRes( ctx, next ){
         console.log('图片上传结果')
         console.log(ctx.req.file)
-        ctx.response.body = '图片上传成功!!图片地址为～    wickhamxu.cn/images' + ctx.req.file.filename;
+        ctx.response.body = '图片上传成功!!图片地址为～ wickhamxu.cn/' + ctx.req.file.filename;
         return
     }
 }
