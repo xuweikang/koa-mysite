@@ -18,7 +18,9 @@
     "url": "https://github.com/xuweikang/express-mysite/issues"
   },
   "homepage": "https://github.com/xuweikang/express-mysite#readme",
-  "dependencies": {},
+  "dependencies": {
+    "koa-multer": "^1.0.2"
+  },
   "devDependencies": {
     "ejs": "^2.6.1",
     "koa": "^2.6.1",

@@ -1,9 +1,9 @@
 /**
- * 主页子路由
+ * 页面子路由
  */
 
 const router = require('koa-router')()
 const index = require('../controllers/index')
 
 module.exports = router
-    .get('/', index)
+    .get('/users', index)
