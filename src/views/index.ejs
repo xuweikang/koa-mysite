@@ -74,23 +74,12 @@
 
 
         var stack = Composites.stack(20, 20, 6, 4, 0, 0, function(x, y) {
-            if (Common.random() > 0.3) {
+            if (Common.random() > 0.5) {
                 return Bodies.rectangle(x, y, 64, 64, {
                     render: {
                         stroke: "red",
                         sprite: {
                             texture: "http://www.wickhamxu.cn/1542191140201.png"
-                        }
-                    }
-                });
-            }else if(Common.random() > 0.6){
-                return Bodies.circle(x, y, 46, {
-                    desity: 0.0005,
-                    frictionAir: 0.06,
-                    friction: 0.01,
-                    render: {
-                        sprite: {
-                            texture: "http://www.wickhamxu.cn/1542191164554.png"
                         }
                     }
                 });
