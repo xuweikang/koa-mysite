@@ -20,6 +20,109 @@
     <div>
         　　 へ　　　　　／|<br>　　/＼7　　　 ∠＿/<br>　 /　│　　 ／　／<br>　│　Z ＿,＜　／　　 /`ヽ<br>　│　　　　　ヽ　　 /　　〉<br>　 Y　　　　　`　 /　　/<br>　ｲ●　､　●　　⊂⊃〈　　/<br>　()　 へ　　　　|　＼〈<br>　　&gt;ｰ ､_　 ィ　 │ ／／<br>　 / へ　　 /　ﾉ＜| ＼＼<br>　 ヽ_ﾉ　　(_／　 │／／<br>　　7　　　　　　　|／<br>　　＞―r￣￣`ｰ―＿
     </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.10.0/matter.min.js"></script>
+    <script>
+
+        // 简写
+        var Engine = Matter.Engine,
+            Render = Matter.Render,
+            World = Matter.World,
+            Bodies = Matter.Bodies,
+            Composites = Matter.Composites,
+            Body = Matter.Body,
+            Constraint = Matter.Constraint,
+            MouseConstraint = Matter.MouseConstraint,
+            Common = Matter.Common,
+            Events = Matter.Events;
+
+
+        // 创建引擎
+        var engine = Engine.create();
+
+        // 创建渲染器
+        var render = Render.create({
+            element: document.body,
+            engine: engine,
+            options: {
+                wireframes : false
+            }
+        });
+
+        // 墙壁
+        var offset = 5;
+        World.add(engine.world, [
+            Bodies.rectangle(400, -offset, 800.5 + 2 * offset, 200, { isStatic: true, render: {
+
+                }}),
+            Bodies.rectangle(400, 600 + offset, 800.5 + 2 * offset, 50.5, { isStatic: true }),
+            Bodies.rectangle(800 + offset, 300, 50.5, 600.5 + 2 * offset, { isStatic: true }),
+            Bodies.rectangle(-offset, 300, 50.5, 600.5 + 2 * offset, { isStatic: true })
+        ]);
+        //
+        // 鼠标约束
+        var mouseConstraint = MouseConstraint.create(engine, {
+            element: render.canvas
+        });
+        //
+        World.add(engine.world, mouseConstraint);
+
+        // 运行引擎
+        Engine.run(engine);
+        Render.run(render);
+
+
+
+
+        var stack = Composites.stack(20, 20, 6, 4, 0, 0, function(x, y) {
+            if (Common.random() > 0.3) {
+                return Bodies.rectangle(x, y, 64, 64, {
+                    render: {
+                        stroke: "red",
+                        sprite: {
+                            texture: "http://www.wickhamxu.cn/1542191140201.png"
+                        }
+                    }
+                });
+            }else if(Common.random() > 0.6){
+                return Bodies.circle(x, y, 46, {
+                    desity: 0.0005,
+                    frictionAir: 0.06,
+                    friction: 0.01,
+                    render: {
+                        sprite: {
+                            texture: "http://www.wickhamxu.cn/1542191164554.png"
+                        }
+                    }
+                });
+            } else {
+                return Bodies.circle(x, y, 46, {
+                    desity: 0.0005,
+                    frictionAir: 0.06,
+                    friction: 0.01,
+                    render: {
+                        sprite: {
+                            texture: "http://www.wickhamxu.cn/1542191153649.png"
+                        }
+                    }
+                });
+            }
+        });
+
+        World.add(engine.world, stack);
+
+        var renderOptions = render.options;
+
+        Engine.run(engine);
+        Render.run(render);
+
+        document.querySelector(".btns_on").addEventListener("click", function() {
+            renderOptions.wireframes = true;
+        }, false);
+
+        document.querySelector(".btns_off").addEventListener("click", function() {
+            renderOptions.wireframes = false;
+        }, false);
+    </script>
 </div>
 </body>
 </html>
