@@ -10,7 +10,7 @@
     <meta charset="UTF-8" http-equiv="Content-Type">
     <meta name="format-detection" content="telephone=no,email=no,address=no" />
     <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1" />
-    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="/image/favicon.ico" type="image/x-icon" />
     <title><%= title %></title>
 </head>
 <body>
@@ -35,7 +35,6 @@
             Common = Matter.Common,
             Events = Matter.Events;
 
-
         // 创建引擎
         var engine = Engine.create();
 
@@ -44,21 +43,11 @@
             element: document.body,
             engine: engine,
             options: {
-                wireframes : false
+                wireframes : false,
+                width: 1500
             }
         });
 
-        // 墙壁
-        var offset = 5;
-        World.add(engine.world, [
-            Bodies.rectangle(400, -offset, 800.5 + 2 * offset, 200, { isStatic: true, render: {
-
-                }}),
-            Bodies.rectangle(400, 600 + offset, 800.5 + 2 * offset, 50.5, { isStatic: true }),
-            Bodies.rectangle(800 + offset, 300, 50.5, 600.5 + 2 * offset, { isStatic: true }),
-            Bodies.rectangle(-offset, 300, 50.5, 600.5 + 2 * offset, { isStatic: true })
-        ]);
-        //
         // 鼠标约束
         var mouseConstraint = MouseConstraint.create(engine, {
             element: render.canvas
@@ -71,46 +60,55 @@
         Render.run(render);
 
 
+        let ground = Bodies.rectangle(400,600,1200,50, { isStatic: true}),
+            random = parseInt(Common.random(1,6))
+            rock = Bodies.circle(300, 300, 40, {
+                render: {
+                    sprite: {
+                        texture: "/image/"+random+".png"
+                    }
+                }
+            })
+        elastic = Constraint.create({
+            pointA: {x:300,y:300},
+            bodyB: rock,
+            stiffness: 0.1   //韧性  0.2 相当于弹簧  1非常僵硬
+        })
 
+        var pyramid = Composites.pyramid(700,300,9,10,0,0,function (x,y) {   //金字塔
+            return Bodies.rectangle(x,y,25,40)
+        })
+        var ground2 = Bodies.rectangle(900, 250, 200, 20, { isStatic: true });
 
-        var stack = Composites.stack(20, 20, 6, 4, 0, 0, function(x, y) {
-            if (Common.random() > 0.5) {
-                return Bodies.rectangle(x, y, 64, 64, {
+        var pyramid2 = Composites.pyramid(820, 0,7,11, 0, 0, function(x, y) {
+            return Bodies.rectangle(x, y, 25, 40);
+        });
+
+        World.add(engine.world, [ground,rock,elastic,pyramid,ground2,pyramid2]);
+
+        Events.on(engine, 'afterUpdate', function(e) {
+            if (mouseConstraint.mouse.button === -1 && (rock.position.x > 340 || rock.position.y < 260)) {
+                let random = parseInt(Common.random(1,6))
+                rock = Bodies.circle(300, 300, 40, {
                     render: {
-                        stroke: "red",
                         sprite: {
-                            texture: "http://www.wickhamxu.cn/1542191140201.png"
+                            texture: "/image/"+random+".png"
                         }
                     }
-                });
-            } else {
-                return Bodies.circle(x, y, 46, {
-                    desity: 0.0005,
-                    frictionAir: 0.06,
-                    friction: 0.01,
-                    render: {
-                        sprite: {
-                            texture: "http://www.wickhamxu.cn/1542191153649.png"
-                        }
-                    }
-                });
+                })
+                elastic.bodyB = rock;
+                World.add(engine.world, rock);
+                console.log(e)
             }
         });
 
-        World.add(engine.world, stack);
 
-        var renderOptions = render.options;
 
-        Engine.run(engine);
-        Render.run(render);
 
-        document.querySelector(".btns_on").addEventListener("click", function() {
-            renderOptions.wireframes = true;
-        }, false);
 
-        document.querySelector(".btns_off").addEventListener("click", function() {
-            renderOptions.wireframes = false;
-        }, false);
+
+
+
     </script>
 </div>
 </body>
