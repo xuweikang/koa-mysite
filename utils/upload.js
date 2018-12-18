@@ -11,7 +11,7 @@ let uploadImg = function (name) {
     var storage = multer.diskStorage({
         //文件保存路径
         destination: function (req, file, cb) {
-            cb(null, '/home/static/images')
+            cb(null, '/home/koa-mysite/static/image')
         },
         //修改文件名称
         filename: function (req, file, cb) {
